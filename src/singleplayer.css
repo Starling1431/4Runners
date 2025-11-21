@@ -1,0 +1,170 @@
+body {
+  margin: 0;
+  height: 100vh;
+  background-image: url('assets/background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center top;
+  animation: subirFondo 5s ease-in-out forwards, fondo-subir 3s ease-in-out 7s;
+  font-family: 'Press Start 2P', cursive;
+  overflow: hidden;
+  position: relative;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.ground {
+  position: absolute;
+  bottom: -100px; /* start below screen (height of the ground) */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2080vh;
+  height: 100px;
+  background-image: url('assets/Backgrounds - Desert.png');
+  background-size: contain;
+  background-position: center bottom;
+  z-index: 4;
+  animation: ground-rise 2.6s ease-out forwards;
+  animation-delay: 7.5s;
+}
+
+/* New keyframes to move ground up together with desert */
+@keyframes ground-rise {
+  from { bottom: -100px; } /* start fully off screen below */
+  to   { bottom: 0; }       /* ends at bottom:0 (visible in final position) */
+}
+
+.character {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) rotate(180deg) scale(0.5);
+  width: 180px;
+  height: 180px; /* reduced height to avoid stretch */
+  z-index: 5;
+  animation-fill-mode: forwards;
+  transition: top 1.5s ease-out, transform 1.2s ease-in-out; /* longer, smoother */
+}
+
+.crash {
+  animation: crash 0.5s ease-in-out 1;
+}
+
+@keyframes crash {
+  0%, 100% { transform: translateX(-50%) rotate(180deg) scale(0.5); }
+  25%, 75% { transform: translateX(calc(-50% + 15px)) rotate(180deg) scale(0.5); }
+  50% { transform: translateX(calc(-50% - 15px)) rotate(180deg) scale(0.5); }
+}
+
+
+.cloud {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  height: 70vh;
+  bottom: -70vh;
+  background-image: url('assets/cloud3.png');
+  background-repeat: repeat-x;
+  background-position: 0 100%;
+  background-size: 200% auto;
+  image-rendering: high-quality;
+  pointer-events: none;
+  z-index: 2;
+  animation: nube-subir 3s linear forwards;
+  animation-delay: 7s;
+}
+
+@keyframes nube-subir {
+  from { bottom: -70vh; }
+  to { bottom: 100vh; }
+}
+
+.desert {
+  position: absolute;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  bottom: -130vh;
+  background-image: url('assets/desertbackground.png');
+  background-repeat: repeat-x;
+  background-position: center top;
+  background-size: cover;
+  pointer-events: none;
+  z-index: 1;
+  animation: desierto-subir 2.6s ease-out forwards;
+  animation-delay: 7s;
+}
+
+@keyframes subirFondo {
+  from { background-position: center top; }
+  to { background-position: center bottom; }
+}
+
+@keyframes fondo-subir {
+  from { background-position: center bottom; }
+  to { background-position: center top; }
+}
+
+@keyframes desierto-subir {
+  from { bottom: -130vh; }
+  to { bottom: 0; }
+}
+
+.logo {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) scale(1);
+  transform-origin: center center;
+  width: 500px;
+  opacity: 0;
+  z-index: 10;
+  transition: top 1.5s ease-out, opacity 1s ease-in;
+}
+
+/* Pulsing grow/shrink animation for the logo before the game starts */
+.logo.pulse {
+  animation: logo-pulse 1.1s ease-in-out infinite;
+}
+
+@keyframes logo-pulse {
+  0%   { transform: translateX(-50%) scale(1) rotate(0deg); }
+  25%  { transform: translateX(-50%) scale(1.08) rotate(-3deg); }
+  50%  { transform: translateX(-50%) scale(1.15) rotate(4deg); }
+  75%  { transform: translateX(-50%) scale(1.08) rotate(-2deg); }
+ 100%  { transform: translateX(-50%) scale(1) rotate(0deg); }
+}
+
+.start-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+  opacity: 0;
+  z-index: 10;
+  transition: opacity 1s ease-in;
+}
+
+@keyframes blink {
+  0%   { opacity: 1; transform: translate(-50%, -50%) scale(1); text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
+  40%  { opacity: 0; transform: translate(-50%, -50%) scale(0.96); text-shadow: none; }
+  60%  { opacity: 0; transform: translate(-50%, -50%) scale(0.96); text-shadow: none; }
+ 100%  { opacity: 1; transform: translate(-50%, -50%) scale(1); text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
+}
+
+.blink {
+  animation: blink 1s steps(1,end) infinite;
+  opacity: 1 !important;
+}

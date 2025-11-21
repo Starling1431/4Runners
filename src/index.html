@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4RUNNERS</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+        <!-- Favicon básico -->
+    <link rel="icon" href="icons/favicon.ico" type="image/x-icon">
+
+    <!-- Otras versiones (opcional pero recomendable) -->
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+</head>
+<body>
+    <!-- Pantalla de carga -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="star-lines">
+            <div class="star-line"></div>
+            <div class="star-line"></div>
+            <div class="star-line"></div>
+            <div class="star-line"></div>
+            <div class="star-line"></div>
+            <div class="star-line"></div>
+            <div class="star-line"></div>
+            <div class="star-line"></div>
+        </div>
+        <div class="loading-logo">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczPap-oxzOLvS_zEg5eb0lrQaeJrlUufsLUcckI-fN_A7hge6nGYYPDRe9i5mp8EHpaXCjOVzpFOX3ncGHUiSdiiE91hoE55drih2nlzUGqKFNsMwPD8ExkByrbQZWWfB6OqKt2oNnzWQKVmzP_ku6Zu=w1024-h267-s-no-gm?authuser=0" alt="4Runners Logo">
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-logo">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczPap-oxzOLvS_zEg5eb0lrQaeJrlUufsLUcckI-fN_A7hge6nGYYPDRe9i5mp8EHpaXCjOVzpFOX3ncGHUiSdiiE91hoE55drih2nlzUGqKFNsMwPD8ExkByrbQZWWfB6OqKt2oNnzWQKVmzP_ku6Zu=w1024-h267-s-no-gm?authuser=0" alt="4Runners Logo">
+        </div>
+        <div class="header-buttons">
+            <button class="header-btn" id="infoBtn">Info</button>
+            <button class="header-btn" id="controlsBtn">Controles</button>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="main-content" id="mainContent">
+        <div class="options-selector">
+            <div class="nav-arrow" id="prevOption">‹</div>
+            
+            <div class="option-circle" id="currentOption">
+                <img class="option-gif" id="optionGif" src="https://via.placeholder.com/120/667eea/white?text=GIF" alt="Option GIF">
+                <div class="option-title" id="optionTitle">Un Jugador</div>
+            </div>
+            
+            <div class="nav-arrow" id="nextOption">›</div>
+        </div>
+
+        <div class="option-indicators">
+            <div class="indicator active" data-option="0"></div>
+            <div class="indicator" data-option="1"></div>
+            <div class="indicator" data-option="2"></div>
+            <div class="indicator" data-option="3"></div>
+        </div>
+    </main>
+
+    <!-- Área del juego -->
+    <div class="game-area" id="gameArea">
+        <button class="back-btn" id="backBtn">← Volver</button>
+        <div class="stage" id="gameStage">
+            <canvas id="gameCanvas" width="900" height="400"></canvas>
+            <div id="hud">
+                <div class="status">Score: <span id="score">0</span></div>
+                <div class="status">High Score: <span id="highScore">0</span></div>
+                <div class="status">Speed: <span id="speed">1</span></div>
+            </div>
+            <div id="gameOverScreen" style="display: none;">
+                <h2>¡Game Over!</h2>
+                <p>Puntuación: <span id="finalScore">0</span></p>
+                <p>Mejor puntuación: <span id="finalHighScore">0</span></p>
+                <button id="restartBtn">Reintentar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de información -->
+    <div class="modal" id="infoModal">
+        <div class="modal-content">
+            <span class="close" id="closeInfo">&times;</span>
+            <h2>Acerca del Juego</h2>
+            <p>¡Bienvenido al 4Runners Dino Game!</p>
+            <p>Este es un juego clásico inspirado en el dinosaurio de Google Chrome. Controla un T-Rex que debe saltar cactus y agacharse para evitar pterodáctilos.</p>
+            <p><strong>Objetivo:</strong> Sobrevive el mayor tiempo posible y obtén la puntuación más alta.</p>
+            <p><strong>Mecánicas:</strong> La velocidad aumenta gradualmente, haciendo el juego más difícil.</p>
+            <p><strong>Desarrollado por:</strong> Brackix Team</p>
+            <p><strong>Versión:</strong> 2.0</p>
+        </div>
+    </div>
+
+    <!-- Modal de controles -->
+    <div class="modal" id="controlsModal">
+        <div class="modal-content">
+            <span class="close" id="closeControls">&times;</span>
+            <h2>Controles del Juego</h2>
+            <div class="controls-grid">
+                <div class="control-item">
+                    <img src="https://cdn1.iconfinder.com/data/icons/outlined-input-icons-gestures/200/tutorial_space_bar-512.png" alt="Space Bar" width="80">
+                    <p><strong>ESPACIO / ↑</strong><br>Saltar sobre obstáculos</p>
+                </div>
+                <div class="control-item">
+                    <p style="font-size: 40px;">↓</p>
+                    <p><strong>S / ↓</strong><br>Agacharse (evitar pterodáctilos)</p>
+                </div>
+                <div class="control-item">
+                    <p style="font-size: 40px;">⏸️</p>
+                    <p><strong>ESC</strong><br>Pausar/Reanudar juego</p>
+                </div>
+                <div class="control-item">
+                    <p style="font-size: 40px;">🔄</p>
+                    <p><strong>R</strong><br>Reiniciar tras Game Over</p>
+                </div>
+            </div>
+            <div class="tips">
+                <h3>💡 Consejos</h3>
+                <p>• Los cactus requieren saltos</p>
+                <p>• Los pterodáctilos requieren agacharse</p>
+                <p>• La velocidad aumenta cada 100 puntos</p>
+                <p>• Mantén presionado S para agacharte más tiempo</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
